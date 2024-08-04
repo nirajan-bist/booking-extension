@@ -1,1 +1,163 @@
-({337:function(){var t=this&&this.__awaiter||function(t,e,n,o){return new(n||(n=Promise))((function(i,c){function s(t){try{d(o.next(t))}catch(t){c(t)}}function r(t){try{d(o.throw(t))}catch(t){c(t)}}function d(t){var e;t.done?i(t.value):(e=t.value,e instanceof n?e:new n((function(t){t(e)}))).then(s,r)}d((o=o.apply(t,e||[])).next())}))};let e=!1;document.addEventListener("keydown",(function(t){"Shift"===t.key&&(e=!0,c())})),document.addEventListener("mouseup",(function(){c()}));function n(t,e){""!==t.trim()&&chrome.storage.sync.get("tasks",(function(n){const o=n.tasks||[],i=Date.now(),c=Math.random().toString(36).substring(2,12);o.find((e=>e.text===t))||(o.unshift({text:t,website:e,timeAdded:i,id:c,type:"confirmed"}),chrome.storage.sync.set({tasks:o}))}))}chrome.runtime.onMessage.addListener((function(e,o,c){return t(this,void 0,void 0,(function*(){const t=e.action;if(console.log(e),"addToSidePanel"===t){const t=e.value||window.getSelection().toString(),o=location.href;console.log("got it"),n(t,o),chrome.runtime.sendMessage({action:"sendUpdated"})}"highlightMatches"===t&&"mail.google.com"===location.host&&i()}))}));const o=/[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}/g;function i(){return t(this,void 0,void 0,(function*(){const t=function(t){const e=[];return t.forEach((t=>{const n=t.text.match(o);n&&e.push(...n)})),e}(yield new Promise(((t,e)=>{chrome.storage.sync.get("tasks",(e=>{const n=e.tasks||[];t(n)}))})));document.querySelectorAll(".bog").forEach((e=>{let n=!1;t.forEach((t=>{e.textContent.includes(t)&&(n=!0,e.style.backgroundColor="yellow",e.style.fontWeight="bold")})),n||(e.style.backgroundColor="",e.style.fontWeight="")}))}))}function c(){const t=window.getSelection().toString().trim();e&&t.length>0&&(n(t,location.href),chrome.runtime.sendMessage({action:"sendUpdated"}))}new MutationObserver(i).observe(document.body,{childList:!0,subtree:!0}),document.addEventListener("DOMContentLoaded",(()=>{setTimeout(i,3e3),document.addEventListener("dragstart",(t=>{window.getSelection().toString().length}))})),document.addEventListener("keyup",(t=>{"Shift"===t.key&&(e=!1)}))}})[337]();
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/contentScript/index.ts":
+/*!************************************!*\
+  !*** ./src/contentScript/index.ts ***!
+  \************************************/
+/***/ (function() {
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+const key = "Shift"; // Change to whatever Control, Alt etc
+let isKeyPressed = false;
+document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("mouseup", handleMouseUp);
+function generateId() {
+    return Math.random().toString(36).substring(2, 12);
+}
+const getTasks = () => new Promise((res, rej) => {
+    chrome.storage.sync.get("tasks", (data) => {
+        const tasks = data.tasks || [];
+        res(tasks);
+    });
+});
+function addTask(taskText, websiteUrl) {
+    if (taskText.trim() !== "") {
+        chrome.storage.sync.get("tasks", function (data) {
+            const tasks = data.tasks || [];
+            const timeAdded = Date.now();
+            const id = generateId();
+            const type = "confirmed"; // or 'booked'
+            const isDuplicate = tasks.find((t) => t.text === taskText);
+            if (isDuplicate)
+                return;
+            tasks.unshift({
+                text: taskText,
+                website: websiteUrl,
+                timeAdded: timeAdded,
+                id,
+                type,
+            });
+            chrome.storage.sync.set({ tasks: tasks });
+        });
+    }
+}
+function runScript(message, sender, sendResponse) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const action = message.action;
+        console.log(message);
+        if (action === "addToSidePanel") {
+            const selectedText = message.value || window.getSelection().toString();
+            const websiteUrl = location.href;
+            console.log("got it");
+            addTask(selectedText, websiteUrl);
+            chrome.runtime.sendMessage({ action: "sendUpdated" });
+        }
+        if (action === "highlightMatches") {
+            const host = location.host;
+            if (host === "mail.google.com")
+                highlightMatches();
+        }
+    });
+}
+chrome.runtime.onMessage.addListener(runScript);
+const regexPattern = /[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}/g; // Update pattern as per requirement
+function extractMatches(data) {
+    const matchList = [];
+    data.forEach((item) => {
+        const matches = item.text.match(regexPattern);
+        if (matches) {
+            matchList.push(...matches);
+        }
+    });
+    return matchList;
+}
+function highlightMatches() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const tasks = yield getTasks();
+        const matches = extractMatches(tasks);
+        // console.log('matches', matches);
+        const subjectElements = document.querySelectorAll(".bog");
+        subjectElements.forEach((subjectElement) => {
+            let hasHighlight = false;
+            matches.forEach((email) => {
+                if (subjectElement.textContent.includes(email)) {
+                    hasHighlight = true;
+                    subjectElement.style.backgroundColor = "yellow";
+                    subjectElement.style.fontWeight = "bold";
+                }
+            });
+            if (!hasHighlight) {
+                subjectElement.style.backgroundColor = "";
+                subjectElement.style.fontWeight = "";
+            }
+        });
+    });
+}
+const observer = new MutationObserver(highlightMatches);
+observer.observe(document.body, { childList: true, subtree: true });
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(highlightMatches, 3000); // Delay to ensure Gmail's dynamic content has
+    document.addEventListener("dragstart", (event) => {
+        const selection = window.getSelection().toString();
+        if (selection.length > 0) {
+            // event.dataTransfer.setData("text/plain", selection + "sdf");
+        }
+    });
+});
+function sendItemToSidePanel() {
+    var _a;
+    if (window.getSelection && ((_a = window.getSelection()) === null || _a === void 0 ? void 0 : _a.type) === "Range") {
+        const selectedText = window.getSelection().toString();
+        const websiteUrl = location.href;
+        addTask(selectedText, websiteUrl);
+        chrome.runtime.sendMessage({ action: "sendUpdated" });
+    }
+}
+function handleKeyDown(event) {
+    if (event.key === key) {
+        isKeyPressed = true;
+        checkTextSelection();
+    }
+}
+function handleMouseUp() {
+    checkTextSelection();
+}
+function checkTextSelection() {
+    const selectedText = window.getSelection().toString().trim();
+    if (isKeyPressed && selectedText.length > 0) {
+        const websiteUrl = location.href;
+        addTask(selectedText, websiteUrl);
+        chrome.runtime.sendMessage({ action: "sendUpdated" });
+    }
+}
+// Reset key status on keyup
+document.addEventListener("keyup", (event) => {
+    if (event.key === "Shift") {
+        isKeyPressed = false;
+    }
+});
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./src/contentScript/index.ts"]();
+/******/ 	
+/******/ })()
+;
+//# sourceMappingURL=contentScript.js.map

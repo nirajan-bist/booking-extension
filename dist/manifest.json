@@ -10,7 +10,7 @@
   "side_panel": {
     "default_path": "sidepanel.html"
   },
-  "permissions": ["tabs", "storage", "sidePanel", "contextMenus", "documentScan","declarativeContent"],
+  "permissions": ["tabs", "storage", "sidePanel", "contextMenus"],
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
