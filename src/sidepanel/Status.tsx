@@ -18,6 +18,8 @@ const subTabs = [
   { id: "bonus", label: "Bonus" },
 ];
 
+const DATA_REFETCH_INTERVAL = 1000 * 60 * 5; // 5 minute(s)
+
 const Status = () => {
   const { activeTab, activateTab } = useTab(tabs);
   const { activeTab: activeSubTab, activateTab: activateSubTab } =
@@ -63,7 +65,7 @@ const Status = () => {
     tableData: Record<string, string>[]
   ) => (
     <table className="table-auto w-full">
-      <thead className="bg-gray-100">
+      <thead className="bg-gray-100 sticky top-[94px]">
         <tr>
           {columns.map((column) => (
             <th key={column.key} className="px-4 py-2 border border-gray-400">
@@ -130,57 +132,94 @@ const Status = () => {
     []
   );
 
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const fetchData = React.useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const statusResponse: StatusData[] = await http.get(
+        `https://script.google.com/macros/s/AKfycbxYIPxrVMF5eFdwvow1PCYSwYDLHsN0mdtf2w3ufgsfbAaVL88j72GjBhBaNhGL2F-c2g/exec`
+      );
+      const buyResponse: BuyData[] = await http.get(
+        "https://script.google.com/macros/s/AKfycbxxQu_U_tiTbBB1dntgGuISjbhC_5X4uw-47xO8O1-jcZbzOGJaBbdR6-DFtKVld3Qk1Q/exec"
+      );
+      const saleResponse: SaleData[] = await http.get(
+        "https://script.google.com/macros/s/AKfycbxahzbkZKRytcRB8BuzEO_PNaGoT0DPcKi3AdTLFzkcNp7xISsXeUPzD5XmuJVfiCFXug/exec"
+      );
+      const bonusResponse: BonusData[] = await http.get(
+        "https://script.google.com/macros/s/AKfycbwMCp7knj9-YMrAG2Xf5haYBRRBkYbZqmmSZHdWgHMxh4f59kwBGPPfY-p6EGchH5wM8w/exec"
+      );
+
+      const salesData = {
+        status: statusResponse,
+        buy: buyResponse,
+        sale: saleResponse,
+        bonus: bonusResponse,
+      };
+      setData(salesData);
+      chrome.storage.local.set({ salesData, lastFetched: Date.now() });
+    } catch (error) {
+      console.log("Error fetching data", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    // Fetch data from API
+
+    let timeout = null;
+    const fetchOrSetData = () =>
+      chrome.storage.local.get((storage) => {
+        const { salesData, lastFetched } = storage;
+        if (salesData) {
+          setData(salesData);
+        }
+
+        if (
+          salesData &&
+          lastFetched &&
+          Date.now() - lastFetched < DATA_REFETCH_INTERVAL
+        ) {
+          setData(salesData);
+          clearTimeout(timeout);
+          timeout = setTimeout(
+            fetchOrSetData,
+            DATA_REFETCH_INTERVAL - (Date.now() - lastFetched)
+          );
+        } else {
+          fetchData();
+          clearTimeout(timeout);
+          timeout = setTimeout(fetchOrSetData, DATA_REFETCH_INTERVAL);
+        }
+      });
+    fetchOrSetData();
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   React.useEffect(() => {
     const data = filteredData[activeSubTab.id];
+
     const tableData = data.map((item) => ({
       email: item.email,
       code: filteredData.activeStatusMap[item.email].code,
       count: item[`${activeTab.id}_${activeSubTab.id}_count`],
-      sum: item[`${activeTab.id}_${activeSubTab.id}_sum`],
+      sum: parseFloat(item[`${activeTab.id}_${activeSubTab.id}_sum`]).toFixed(
+        2
+      ),
     }));
 
     setTableData(tableData);
   }, [activeTab, activeSubTab, filteredData]);
 
-  React.useEffect(() => {
-    // Fetch data from API
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const statusResponse: StatusData[] = await http.get(
-          `https://script.google.com/macros/s/AKfycbxYIPxrVMF5eFdwvow1PCYSwYDLHsN0mdtf2w3ufgsfbAaVL88j72GjBhBaNhGL2F-c2g/exec`
-        );
-        const buyResponse: BuyData[] = await http.get(
-          "https://script.google.com/macros/s/AKfycbxxQu_U_tiTbBB1dntgGuISjbhC_5X4uw-47xO8O1-jcZbzOGJaBbdR6-DFtKVld3Qk1Q/exec"
-        );
-        const saleResponse: SaleData[] = await http.get(
-          "https://script.google.com/macros/s/AKfycbxahzbkZKRytcRB8BuzEO_PNaGoT0DPcKi3AdTLFzkcNp7xISsXeUPzD5XmuJVfiCFXug/exec"
-        );
-        const bonusResponse: BonusData[] = await http.get(
-          "https://script.google.com/macros/s/AKfycbwMCp7knj9-YMrAG2Xf5haYBRRBkYbZqmmSZHdWgHMxh4f59kwBGPPfY-p6EGchH5wM8w/exec"
-        );
-
-        setData({
-          status: statusResponse,
-          buy: buyResponse,
-          sale: saleResponse,
-          bonus: bonusResponse,
-        });
-      } catch (error) {
-        console.error("Error fetching data", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   return (
-    <div>
-      {renderTabs()} {renderSubTabs()}
+    <div className="status-tab overflow-auto">
+      <div className="sticky top-0 backdrop-blur-sm">
+        {renderTabs()} {renderSubTabs()}
+      </div>
       {isLoading && (
         <div className="text-center font-semibold text-base">Loading...</div>
       )}

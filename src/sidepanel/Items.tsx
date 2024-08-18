@@ -6,9 +6,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { FaFacebook, FaRegTimesCircle, FaCheck } from "react-icons/fa";
 import { FaRegClipboard } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { DropzoneArea } from "./DropzoneArea";
 import clsx from "clsx";
-import useTab, { Tab } from "../hooks/useTab";
 
 dayjs.extend(relativeTime);
 
@@ -29,6 +27,7 @@ const Items = ({ activateTab }: Props) => {
       if (message.action === "updatePanel") {
         chrome.storage.sync.get("tasks", (obj) => {
           const tasks = obj.tasks;
+          if (!tasks) return;
           setData(tasks);
           updateBadge(tasks.length.toString());
           activateTab("items");
@@ -39,6 +38,7 @@ const Items = ({ activateTab }: Props) => {
 
     chrome.storage.sync.get("tasks", (obj) => {
       const tasks = obj.tasks;
+      if (!tasks) return;
       setData(tasks);
       updateBadge(tasks.length.toString());
     });

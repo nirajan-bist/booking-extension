@@ -2,3 +2,7 @@ body {
   height: 400px;
   width: auto;
 }
+
+.status-tab {
+  height: calc(100vh - 80px);
+}

@@ -25,6 +25,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
   chrome.storage.sync.get("tasks", (obj) => {
     const tasks = obj.tasks;
+    if (!tasks) return;
     updateBadge(tasks.length.toString());
   });
 });
@@ -46,7 +47,7 @@ function addTask(taskText, websiteUrl) {
         type,
       });
       chrome.storage.sync.set({ tasks: tasks }, function () {
-        // console.log('added', tasks);
+        if (!tasks) return;
         updateBadge(tasks.length.toString());
       });
     });

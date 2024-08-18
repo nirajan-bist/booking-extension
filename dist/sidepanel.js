@@ -530,6 +530,9 @@ video {
 .top-0 {
   top: 0px;
 }
+.top-\\[94px\\] {
+  top: 94px;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -596,6 +599,9 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.875rem * var(--tw-space-x-reverse));
   margin-left: calc(0.875rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.overflow-auto {
+  overflow: auto;
 }
 .rounded-md {
   border-radius: 0.375rem;
@@ -731,7 +737,7 @@ body {
 .last\\:mb-0:last-child {
   margin-bottom: 0px;
 }
-`, "",{"version":3,"sources":["webpack://./src/assets/tailwind.css"],"names":[],"mappings":"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","sourcesContent":["@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n/* \nbody {\n    height: 400px;\n    width: 400px;\n} */\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/assets/tailwind.css"],"names":[],"mappings":"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","sourcesContent":["@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n/* \nbody {\n    height: 400px;\n    width: 400px;\n} */\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -761,7 +767,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   height: 400px;
   width: auto;
 }
-`, "",{"version":3,"sources":["webpack://./src/sidepanel/sidepanel.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,WAAW;AACb","sourcesContent":["body {\n  height: 400px;\n  width: auto;\n}\n"],"sourceRoot":""}]);
+
+.status-tab {
+  height: calc(100vh - 80px);
+}
+`, "",{"version":3,"sources":["webpack://./src/sidepanel/sidepanel.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,WAAW;AACb;;AAEA;EACE,0BAA0B;AAC5B","sourcesContent":["body {\n  height: 400px;\n  width: auto;\n}\n\n.status-tab {\n  height: calc(100vh - 80px);\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1017,6 +1027,8 @@ const Items = ({ activateTab }) => {
             if (message.action === "updatePanel") {
                 chrome.storage.sync.get("tasks", (obj) => {
                     const tasks = obj.tasks;
+                    if (!tasks)
+                        return;
                     setData(tasks);
                     updateBadge(tasks.length.toString());
                     activateTab("items");
@@ -1026,6 +1038,8 @@ const Items = ({ activateTab }) => {
         });
         chrome.storage.sync.get("tasks", (obj) => {
             const tasks = obj.tasks;
+            if (!tasks)
+                return;
             setData(tasks);
             updateBadge(tasks.length.toString());
         });
@@ -1195,6 +1209,7 @@ const subTabs = [
     { id: "sale", label: "Sale" },
     { id: "bonus", label: "Bonus" },
 ];
+const DATA_REFETCH_INTERVAL = 1000 * 60 * 5; // 5 minute(s)
 const Status = () => {
     const { activeTab, activateTab } = (0,_hooks_useTab__WEBPACK_IMPORTED_MODULE_1__["default"])(tabs);
     const { activeTab: activeSubTab, activateTab: activateSubTab } = (0,_hooks_useTab__WEBPACK_IMPORTED_MODULE_1__["default"])(subTabs);
@@ -1204,7 +1219,7 @@ const Status = () => {
             : "bg-blue-200"}`, onClick: () => activateSubTab(tab.id) }, tab.label)))));
     // Function to render a alternating colored table showing items and their status
     const renderTable = (columns, tableData) => (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { className: "table-auto w-full" },
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", { className: "bg-gray-100" },
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", { className: "bg-gray-100 sticky top-[94px]" },
             react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, columns.map((column) => (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", { key: column.key, className: "px-4 py-2 border border-gray-400" }, column.label))))),
         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, tableData.map((row, index) => (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { key: index, className: index % 2 === 0 ? "bg-gray-200 " : "" }, columns.map((column) => (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { key: column.key, className: "border border-gray-400 px-4 py-2" }, row[column.key])))))))));
     const { data, setData } = (0,_DataContext__WEBPACK_IMPORTED_MODULE_3__.useDataContext)();
@@ -1231,46 +1246,71 @@ const Status = () => {
         { key: "sum", label: "Sum" },
     ];
     const [tableData, setTableData] = react__WEBPACK_IMPORTED_MODULE_0___default().useState([]);
-    const [isLoading, setIsLoading] = react__WEBPACK_IMPORTED_MODULE_0___default().useState(true);
+    const [isLoading, setIsLoading] = react__WEBPACK_IMPORTED_MODULE_0___default().useState(false);
+    const fetchData = react__WEBPACK_IMPORTED_MODULE_0___default().useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            setIsLoading(true);
+            const statusResponse = yield _utils_http__WEBPACK_IMPORTED_MODULE_2__.http.get(`https://script.google.com/macros/s/AKfycbxYIPxrVMF5eFdwvow1PCYSwYDLHsN0mdtf2w3ufgsfbAaVL88j72GjBhBaNhGL2F-c2g/exec`);
+            const buyResponse = yield _utils_http__WEBPACK_IMPORTED_MODULE_2__.http.get("https://script.google.com/macros/s/AKfycbxxQu_U_tiTbBB1dntgGuISjbhC_5X4uw-47xO8O1-jcZbzOGJaBbdR6-DFtKVld3Qk1Q/exec");
+            const saleResponse = yield _utils_http__WEBPACK_IMPORTED_MODULE_2__.http.get("https://script.google.com/macros/s/AKfycbxahzbkZKRytcRB8BuzEO_PNaGoT0DPcKi3AdTLFzkcNp7xISsXeUPzD5XmuJVfiCFXug/exec");
+            const bonusResponse = yield _utils_http__WEBPACK_IMPORTED_MODULE_2__.http.get("https://script.google.com/macros/s/AKfycbwMCp7knj9-YMrAG2Xf5haYBRRBkYbZqmmSZHdWgHMxh4f59kwBGPPfY-p6EGchH5wM8w/exec");
+            const salesData = {
+                status: statusResponse,
+                buy: buyResponse,
+                sale: saleResponse,
+                bonus: bonusResponse,
+            };
+            setData(salesData);
+            chrome.storage.local.set({ salesData, lastFetched: Date.now() });
+        }
+        catch (error) {
+            console.log("Error fetching data", error);
+        }
+        finally {
+            setIsLoading(false);
+        }
+    }), []);
+    react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(() => {
+        // Fetch data from API
+        let timeout = null;
+        const fetchOrSetData = () => chrome.storage.local.get((storage) => {
+            const { salesData, lastFetched } = storage;
+            if (salesData) {
+                setData(salesData);
+            }
+            if (salesData &&
+                lastFetched &&
+                Date.now() - lastFetched < DATA_REFETCH_INTERVAL) {
+                setData(salesData);
+                clearTimeout(timeout);
+                timeout = setTimeout(fetchOrSetData, DATA_REFETCH_INTERVAL - (Date.now() - lastFetched));
+            }
+            else {
+                fetchData();
+                clearTimeout(timeout);
+                timeout = setTimeout(fetchOrSetData, DATA_REFETCH_INTERVAL);
+            }
+        });
+        fetchOrSetData();
+        return () => {
+            clearTimeout(timeout);
+        };
+    }, []);
     react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(() => {
         const data = filteredData[activeSubTab.id];
         const tableData = data.map((item) => ({
             email: item.email,
             code: filteredData.activeStatusMap[item.email].code,
             count: item[`${activeTab.id}_${activeSubTab.id}_count`],
-            sum: item[`${activeTab.id}_${activeSubTab.id}_sum`],
+            sum: parseFloat(item[`${activeTab.id}_${activeSubTab.id}_sum`]).toFixed(2),
         }));
         setTableData(tableData);
     }, [activeTab, activeSubTab, filteredData]);
-    react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(() => {
-        // Fetch data from API
-        const fetchData = () => __awaiter(void 0, void 0, void 0, function* () {
-            try {
-                setIsLoading(true);
-                const statusResponse = yield _utils_http__WEBPACK_IMPORTED_MODULE_2__.http.get(`https://script.google.com/macros/s/AKfycbxYIPxrVMF5eFdwvow1PCYSwYDLHsN0mdtf2w3ufgsfbAaVL88j72GjBhBaNhGL2F-c2g/exec`);
-                const buyResponse = yield _utils_http__WEBPACK_IMPORTED_MODULE_2__.http.get("https://script.google.com/macros/s/AKfycbxxQu_U_tiTbBB1dntgGuISjbhC_5X4uw-47xO8O1-jcZbzOGJaBbdR6-DFtKVld3Qk1Q/exec");
-                const saleResponse = yield _utils_http__WEBPACK_IMPORTED_MODULE_2__.http.get("https://script.google.com/macros/s/AKfycbxahzbkZKRytcRB8BuzEO_PNaGoT0DPcKi3AdTLFzkcNp7xISsXeUPzD5XmuJVfiCFXug/exec");
-                const bonusResponse = yield _utils_http__WEBPACK_IMPORTED_MODULE_2__.http.get("https://script.google.com/macros/s/AKfycbwMCp7knj9-YMrAG2Xf5haYBRRBkYbZqmmSZHdWgHMxh4f59kwBGPPfY-p6EGchH5wM8w/exec");
-                setData({
-                    status: statusResponse,
-                    buy: buyResponse,
-                    sale: saleResponse,
-                    bonus: bonusResponse,
-                });
-            }
-            catch (error) {
-                console.error("Error fetching data", error);
-            }
-            finally {
-                setIsLoading(false);
-            }
-        });
-        fetchData();
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null,
-        renderTabs(),
-        " ",
-        renderSubTabs(),
+    return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "status-tab overflow-auto" },
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "sticky top-0 backdrop-blur-sm" },
+            renderTabs(),
+            " ",
+            renderSubTabs()),
         isLoading && (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "text-center font-semibold text-base" }, "Loading...")),
         renderTable(columns, tableData)));
 };
