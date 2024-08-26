@@ -2,7 +2,7 @@ export type StatusData = {
   email: string;
   code: string;
   status: string;
-  coupun: string;
+  coupon: string;
 };
 
 export type BuyData = {
@@ -29,8 +29,8 @@ export type SaleData = {
   "1d_sale_sum": number;
   "7d_sale_count": number;
   "7d_sale_sum": number;
-  sale_total_count: number;
-  sale_total_sum: number;
+  total_sale_count: number;
+  total_sale_sum: number;
 };
 
 export type BonusData = {

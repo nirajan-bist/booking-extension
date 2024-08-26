@@ -5,10 +5,10 @@ export type Tab = {
   label: string;
 };
 
-const useTab = (initialTabs: Tab[]) => {
-  const [tabs, setTabs] = useState<Tab[]>(initialTabs);
+const useTab = <T extends Tab & { [key: string]: any }>(initialTabs: T[]) => {
+  const [tabs, setTabs] = useState<T[]>(initialTabs);
 
-  const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
+  const [activeTab, setActiveTab] = useState<T>(tabs[0]);
 
   const activateTab = (tabId: string) => {
     const tab = tabs.find((t) => t.id === tabId);

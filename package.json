@@ -30,6 +30,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "antd": "^5.20.2",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
     "react-dropzone": "^14.2.3",
