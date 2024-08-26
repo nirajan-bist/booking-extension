@@ -14,6 +14,7 @@ export const TabGroup = ({ value, onChange, options }: Props) => {
 
   return (
     <Radio.Group
+      className="font-semibold"
       options={options}
       onChange={_onChange}
       value={value}
